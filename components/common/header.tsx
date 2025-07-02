@@ -7,7 +7,7 @@ export default function Header() {
 
   return (
     <nav className="container flex justify-between items-center px-2 lg:px-8 py-4 mx-auto">
-      <div className="flex lg:flex-1">
+      <div className="flex">
         <NavLink
           href="/"
           className="flex items-center justify-center gap-1 lg:gap-2 shrink-0"
