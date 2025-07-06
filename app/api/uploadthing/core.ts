@@ -18,7 +18,7 @@ export const ourFileRouter = {
       console.log("upload completed for user id", metadata.userID)
       console.log("file url", file.ufsUrl)
 
-      return { userID: metadata.userID, url: file.ufsUrl, name: file.name }
+      return { userId: metadata.userID, url: file.ufsUrl, name: file.name }
     }),
 } satisfies FileRouter
 
