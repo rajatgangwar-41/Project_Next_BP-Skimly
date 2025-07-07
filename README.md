@@ -2,7 +2,7 @@
 
 Built with Next.js 15 App Router, Clerk for Auth, React, OpenAI GPT-4, Gemini AI, Langchain, ShadCN UI components, Tailwind CSS 4, NeonDB, UploadThing, Stripe for payments, TypeScript, Zod, Motion and more.
 
-![Project Image](https://www.rajatgangwar-skimly.vercel.app/opengraph-image.png)
+![Project Image](https://rajatgangwar-skimly.vercel.app/opengraph-image.png)
 
 ## ⚡️ Features
 
