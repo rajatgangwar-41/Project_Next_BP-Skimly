@@ -10,7 +10,7 @@ import { MotionDiv } from "../common/motion-wrapper"
 
 const SectionTitle = ({ title }: { title: string }) => {
   return (
-    <div className="flex flex-col gap-2 mb-6 sticky top-0 pt-2 pb-4 bg-background/80 backdrop-blur-xs z-10">
+    <div className="flex flex-col gap-2 mb-6 top-0 pt-2 pb-4 bg-background/80 backdrop-blur-xs z-10">
       <h2 className="text-3xl lg:text-4xl font-bold text-center flex items-center justify-center gap-2">
         {title}
       </h2>
@@ -43,7 +43,7 @@ export function SummaryViewer({ summary }: { summary: string }) {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.2, ease: "easeInOut" }}
         exit={{ opacity: 0 }}
-        className="h-full overflow-y-auto scrollbar-hide pt-12 sm:pt-16 pb-20 sm:pb-24"
+        className="h-full overflow-y-auto scrollbar-hidden pt-12 sm:pt-16 pb-20 sm:pb-24"
       >
         <div className="px-4 sm:px-6">
           <SectionTitle title={sections[currentSection]?.title || ""} />
@@ -51,11 +51,6 @@ export function SummaryViewer({ summary }: { summary: string }) {
             title={sections[currentSection]?.title || ""}
             points={sections[currentSection]?.points || []}
           />
-          <ul className="mt-4 space-y-2">
-            {sections[currentSection]?.points.map((point, index) => (
-              <li key={index}>{point}</li>
-            ))}
-          </ul>
         </div>
       </MotionDiv>
 
