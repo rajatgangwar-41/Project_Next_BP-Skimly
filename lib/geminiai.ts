@@ -1,16 +1,16 @@
 import { GoogleGenAI } from "@google/genai"
 import { SUMMARY_SYSTEM_PROMPT } from "@/utils/prompts"
 
-const client = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 
 export async function generateSummaryFromGeminiAI(
   pdfText: string
 ): Promise<string> {
   try {
-    const response = await client.models.generateContent({
+    const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      generationConfig: {
-        systemInstruction: SUMMARY_SYSTEM_PROMPT,
+      config: {
+        // systemInstruction: SUMMARY_SYSTEM_PROMPT,
         temperature: 0.7,
         maxOutputTokens: 1500,
         topP: 0.95,

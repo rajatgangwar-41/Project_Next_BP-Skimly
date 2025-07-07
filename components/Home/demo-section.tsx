@@ -3,38 +3,38 @@ import { SummaryViewer } from "../summaries/summary-viewer"
 import { MotionDiv, MotionH3 } from "../common/motion-wrapper"
 
 const DEMO_SUMMARY = `
-# Quick Overview: Rajat's Resume
-. 💖 Unlocking the future of web development with cutting-edge frontend expertise and a passion for scalable solutions.
-. 🚀 A proven track record of building robust, user-centric applications and optimizing performance.
+ # 🚀 Top Tech Talent Alert! 🚀
+💖 Unlocking a world of problem-solving prowess and development excellence!
+🚀 This candidate is a coding powerhouse ready to elevate your team.
 
 # Document Details
-. 📄 Developer Portfolio Snapshot
-. 👥 For: Tech Recruiters & Hiring Managers seeking top-tier talent.
+• ✉️ Type: Job Application/Cover Letter
+• 👥 For: Hiring Teams/Recruiters
 
 # Key Highlights
-. 💡 Master of Modern Frontend Stacks: React, Next.js, Redux, TailwindCSS, and more.
-. 🚀 Impactful Project Builder: Developed diverse applications from food delivery to video calls with real-world impact.
-. 🏆 Elite Problem Solver: 6-Star Codechef competitive programmer with 500+ DSA problems conquered.
+• 💡 Solved 1000+ DSA problems with top competitive programming ranks.
+• 🚀 Built responsive web pages and implemented security features at ITJOBXS.
+• 💫 Boosted user engagement by 20% and reduced bugs by 40% at Edfora Infotech.
 
 # Why It Matters
-. 📈 Rajat's blend of advanced technical skills, practical project experience, and exceptional problem-solving abilities translates directly into high-performing, user-friendly, and secure applications. He doesn't just build; he optimizes, secures, and innovates, driving tangible improvements in user engagement and system efficiency.
+• 📈 This document showcases a highly skilled individual with a proven track record in both fundamental computer science (DSA) and practical, impactful software development. Their experience in diverse environments (startup and product-based) and commitment to clean, reusable code makes them a strong contender for any tech role, promising immediate value and innovation.
 
 # Main Points
-. 🎯 Full-Stack Ready Frontend Expertise: Proficient in modern frontend frameworks with strong core CS fundamentals.
-. 💪 Performance & Security Focused: Consistently optimizes load times, enhances user experience, and implements robust security measures.
-. 🔥 Proven Impact & Leadership: Delivered measurable results in internships and mentored aspiring developers.
+• 🎯 Strong foundation in Data Structures & Algorithms (DSA) with competitive programming achievements.
+• 💪 Hands-on experience in full-stack development, including front-end, authentication, and security.
+• 🔥 Demonstrated ability to improve performance, increase engagement, and reduce bugs in real-world applications.
 
 # Pro Tips
-. ⭐ Master Your Stack: Dive deep into frameworks like React/Next.js and state management tools like Redux or Zustand.
-. 💎 Build Diverse Projects: Showcase different facets of development, from e-commerce to real-time communication.
-. 💥 Conquer DSA: Strong Data Structures & Algorithms skills are key for competitive programming and complex problem-solving.
+• ⭐ Check out the candidate's GitHub for impressive code contributions and engagement trophies.
+• 💎 Review the portfolio to see live projects and design capabilities.
+• 💥 Schedule an interview to dive deeper into their problem-solving approach and product thinking.
 
 # Key Terms to Know
-. 📚 Redux Toolkit: A powerful library for predictable state management in JavaScript applications, simplifying state logic.
-. 🔍 Zod: A TypeScript-first schema declaration and validation library, essential for robust and error-free form handling.
+• 📚 DSA (Data Structures and Algorithms): Fundamental concepts for efficient problem-solving in computer science.
+• 🔍 Responsive Web Pages: Websites that adapt their layout and content to different screen sizes (desktops, tablets, mobiles).
 
 # Bottom Line
-. 💡 Rajat is a highly skilled, impact-driven software engineer ready to innovate and excel in any challenging frontend role.
+• 💡 This candidate is a well-rounded, high-achieving developer ready to make a significant imp
 `
 
 export default function DemoSection() {
