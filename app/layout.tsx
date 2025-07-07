@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description:
     "Save time and enhance your productivity with Skimly's AI-driven content summarization. Quickly digest articles, documents, and more with our advanced AI-Powered summarization technology.",
   icons: {
-    icon: "/icon.io",
+    icon: "/icon.ico",
   },
   openGraph: {
     images: [
