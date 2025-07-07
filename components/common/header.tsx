@@ -1,7 +1,6 @@
 import { FileText } from "lucide-react"
-import { Button } from "../ui/button"
-import NavLink from "./nav-links"
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+import NavLink from "./nav-links"
 import PlanBadge from "./plan-badge"
 
 export default function Header() {

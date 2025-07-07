@@ -1,4 +1,41 @@
 import { Pizza } from "lucide-react"
+import { SummaryViewer } from "../summaries/summary-viewer"
+import { MotionDiv, MotionH3 } from "../common/motion-wrapper"
+
+const DEMO_SUMMARY = `
+# Quick Overview: Rajat's Resume
+. 💖 Unlocking the future of web development with cutting-edge frontend expertise and a passion for scalable solutions.
+. 🚀 A proven track record of building robust, user-centric applications and optimizing performance.
+
+# Document Details
+. 📄 Developer Portfolio Snapshot
+. 👥 For: Tech Recruiters & Hiring Managers seeking top-tier talent.
+
+# Key Highlights
+. 💡 Master of Modern Frontend Stacks: React, Next.js, Redux, TailwindCSS, and more.
+. 🚀 Impactful Project Builder: Developed diverse applications from food delivery to video calls with real-world impact.
+. 🏆 Elite Problem Solver: 6-Star Codechef competitive programmer with 500+ DSA problems conquered.
+
+# Why It Matters
+. 📈 Rajat's blend of advanced technical skills, practical project experience, and exceptional problem-solving abilities translates directly into high-performing, user-friendly, and secure applications. He doesn't just build; he optimizes, secures, and innovates, driving tangible improvements in user engagement and system efficiency.
+
+# Main Points
+. 🎯 Full-Stack Ready Frontend Expertise: Proficient in modern frontend frameworks with strong core CS fundamentals.
+. 💪 Performance & Security Focused: Consistently optimizes load times, enhances user experience, and implements robust security measures.
+. 🔥 Proven Impact & Leadership: Delivered measurable results in internships and mentored aspiring developers.
+
+# Pro Tips
+. ⭐ Master Your Stack: Dive deep into frameworks like React/Next.js and state management tools like Redux or Zustand.
+. 💎 Build Diverse Projects: Showcase different facets of development, from e-commerce to real-time communication.
+. 💥 Conquer DSA: Strong Data Structures & Algorithms skills are key for competitive programming and complex problem-solving.
+
+# Key Terms to Know
+. 📚 Redux Toolkit: A powerful library for predictable state management in JavaScript applications, simplifying state logic.
+. 🔍 Zod: A TypeScript-first schema declaration and validation library, essential for robust and error-free form handling.
+
+# Bottom Line
+. 💡 Rajat is a highly skilled, impact-driven software engineer ready to innovate and excel in any challenging frontend role.
+`
 
 export default function DemoSection() {
   return (
@@ -21,18 +58,29 @@ export default function DemoSection() {
             <Pizza className="w-6 h-6 text-rose-500" />
           </div>
           <div className="text-center mb-16">
-            <h3 className="font-bold text-3xl max-2xl mx-auto px-4 sm:px-6">
-              Watch how Skimly transforms{" "}
+            <MotionH3
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="font-bold text-3xl max-2xl mx-auto px-4 sm:px-6"
+            >
+              Watch how Skimly transforms the{" "}
               <span className="bg-linear-to-r from-rose-500 to-rose-700 bg-clip-text text-transparent">
-                this Next.js course PDF
+                Resume PDF file
               </span>{" "}
               into an easy-to-read summary!
-            </h3>
+            </MotionH3>
           </div>
+        </div>
 
-          <div className="flex justify-center items-center px-2 sm:px-4 lg:px-6">
-            {/* Summary Viewer */}
-          </div>
+        <div className="flex justify-center items-center px-2 sm:px-4 lg:px-6">
+          <MotionDiv
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <SummaryViewer summary={DEMO_SUMMARY} />
+          </MotionDiv>
         </div>
       </div>
     </section>
