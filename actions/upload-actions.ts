@@ -5,41 +5,18 @@ import { generateSummaryFromOpenAI } from "@/lib/openai"
 import { generateSummaryFromGeminiAI } from "@/lib/geminiai"
 import { getDbConnection } from "@/lib/db"
 import { auth } from "@clerk/nextjs/server"
-import { formatFileNameAsTitle } from "@/utils/format-utils"
 import { revalidatePath } from "next/cache"
 
-interface PdfSummaryType {
+type PdfSummaryType = {
   userId?: string
   fileUrl: string
-  summary: string
+  summary: any
   title: string
   fileName: string
 }
 
-export async function generatePdfSummary(
-  uploadResponse: [
-    {
-      serverData: {
-        userId: string
-        url: string
-        name: string
-      }
-    }
-  ]
-) {
-  if (!uploadResponse) {
-    return {
-      success: false,
-      message: "File upload failed",
-      data: null,
-    }
-  }
-
-  const {
-    serverData: { userId, url: pdfUrl, name: fileName },
-  } = uploadResponse[0]
-
-  if (!pdfUrl) {
+export async function generatePdfText({ fileUrl }: { fileUrl: string }) {
+  if (!fileUrl) {
     return {
       success: false,
       message: "File upload failed",
@@ -48,55 +25,78 @@ export async function generatePdfSummary(
   }
 
   try {
-    const pdfText = await fetchAndExtractPdfText(pdfUrl)
+    const pdfText = await fetchAndExtractPdfText(fileUrl)
     console.log({ pdfText })
 
-    let summary
-    try {
-      summary = await generateSummaryFromOpenAI(pdfText)
-      console.log("Summary", { summary })
-    } catch (error) {
-      console.log(error)
-      //call gemini
-      if (error instanceof Error && error.message === "RATE_LIMIT_EXCEEDED") {
-        try {
-          summary = await generateSummaryFromGeminiAI(pdfText)
-        } catch (geminiError) {
-          console.error(
-            "Gemini API failed after OpenAI quote exceeded",
-            geminiError
-          )
-          throw new Error(
-            "Failed to generate summary with available AI providers"
-          )
-        }
-      }
-    }
-
-    if (!summary) {
+    if (!pdfText) {
       return {
         success: false,
-        message: "Failed to generate summary",
+        message: "Failed to fetch and extract PDF text",
         data: null,
       }
     }
-
-    const formattedFileName = formatFileNameAsTitle(fileName)
-
     return {
       success: true,
       message: "Summary generated successfully",
       data: {
-        title: formattedFileName,
-        summary,
+        pdfText,
       },
     }
   } catch (err) {
     return {
       success: false,
-      message: "File upload failed",
+      message: "Failed to fetch and extract PDF text",
       data: null,
     }
+  }
+}
+
+export async function generatePdfSummary({
+  pdfText,
+  fileName,
+}: {
+  pdfText: string
+  fileName: string
+}) {
+  let summary
+  try {
+    summary = await generateSummaryFromOpenAI(pdfText)
+    console.log("Summary", { summary })
+  } catch (error) {
+    console.log(error)
+    //call gemini
+    if (error instanceof Error && error.message === "RATE_LIMIT_EXCEEDED") {
+      try {
+        summary = await generateSummaryFromGeminiAI(pdfText)
+      } catch (geminiError) {
+        console.error(
+          "Gemini API failed after OpenAI quote exceeded",
+          geminiError
+        )
+        return {
+          success: false,
+          message: "File upload failed",
+          data: null,
+        }
+      }
+    }
+  }
+
+  if (!summary) {
+    return {
+      success: false,
+      message: "Failed to generate summary",
+      data: null,
+    }
+  }
+
+  return {
+    success: true,
+    message: "Failed to generate summary",
+    data: {
+      title: fileName,
+      summary,
+    },
   }
 }
 

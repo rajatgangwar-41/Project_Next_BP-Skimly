@@ -6,11 +6,13 @@ import { z } from "zod"
 import { toast } from "sonner"
 import {
   generatePdfSummary,
+  generatePdfText,
   storePdfSummaryAction,
 } from "@/actions/upload-actions"
 import { useRef, useState } from "react"
 import { useRouter } from "next/navigation"
-import { LoadingSkeleton } from "./loading-skeleton"
+import LoadingSkeleton from "./loading-skeleton"
+import { formatFileNameAsTitle } from "@/utils/format-utils"
 
 const schema = z.object({
   file: z
@@ -86,39 +88,54 @@ export default function UploadForm() {
       })
 
       // Upload the pdf to uploadthing
-      const resp = await startUpload([file])
+      const uploadResponse = await startUpload([file])
 
-      if (!resp || resp.length === 0) throw new Error("Response is invalid")
+      if (!uploadResponse || uploadResponse.length === 0)
+        throw new Error("Response is invalid")
 
       toast.loading("🧠 Processing PDF", {
         id: currentToastId,
         description: "Hang tight! Our AI is reading through your document! ⏳",
       })
 
-      // Parse the pdf using langchain
-      const result = await generatePdfSummary(resp)
-      console.log("🚀 ~ handleSubmit ~ summary:", result)
+      const uploadFileUrl = uploadResponse[0].serverData.url
 
-      const { data = null, message = null } = result || {}
+      let storeResult: any
 
-      if (data) {
-        toast.loading("💾 Saving PDF...", {
-          id: currentToastId,
-          description: "Hang tight! We are saving your summary! ✨",
+      const formattedFileName = formatFileNameAsTitle(file.name)
+
+      // parse thepdf using langchain
+      const result = await generatePdfText({
+        fileUrl: uploadFileUrl,
+      })
+
+      toast.loading("📄 Generating PDF Summary", {
+        id: currentToastId,
+        description: "Wait! Your summary is being generated! ⏳",
+      })
+
+      const summaryResult = await generatePdfSummary({
+        pdfText: result?.data?.pdfText ?? "",
+        fileName: formattedFileName,
+      })
+
+      const { data = null, message = null } = summaryResult || {}
+
+      toast.loading("💾 Saving PDF...", {
+        id: currentToastId,
+        description: "Hang tight! We are saving your summary! ✨",
+      })
+
+      if (data?.summary) {
+        // save summar to database
+        storeResult = await storePdfSummaryAction({
+          summary: data.summary,
+          fileUrl: uploadFileUrl,
+          title: formattedFileName,
+          fileName: file.name,
         })
 
-        let storeResult
-
-        if (data.summary) {
-          storeResult = await storePdfSummaryAction({
-            summary: data.summary,
-            fileUrl: resp[0].serverData.url,
-            title: data.title,
-            fileName: file.name,
-          })
-        }
-
-        toast.success("💾 Saved PDF in the DB...", {
+        toast.success("✨ Summary Generated!", {
           id: currentToastId,
           description:
             "Hooray! Your PDF has been successfully summarized and saved",
@@ -126,12 +143,6 @@ export default function UploadForm() {
 
         formRef.current?.reset()
         router.push(`summaries/${storeResult?.data?.id}`)
-      } else {
-        toast.error("AI couldn't summarize", {
-          id: currentToastId,
-          description: "AI Model Error",
-          icon: "❌",
-        })
       }
     } catch (error) {
       if (currentToastId) {
